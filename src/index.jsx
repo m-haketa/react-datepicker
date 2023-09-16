@@ -497,8 +497,10 @@ export default class DatePicker extends React.Component {
 
   handleChange = (...allArgs) => {
     let event = allArgs[0];
+
+    let onChangeRawRet = undefined;
     if (this.props.onChangeRaw) {
-      this.props.onChangeRaw.apply(this, allArgs);
+      onChangeRawRet = this.props.onChangeRaw.apply(this, allArgs);
       if (
         typeof event.isDefaultPrevented !== "function" ||
         event.isDefaultPrevented()
@@ -507,11 +509,11 @@ export default class DatePicker extends React.Component {
       }
     }
     this.setState({
-      inputValue: event.target.value,
+      inputValue: onChangeRawRet ?? event.target.value,
       lastPreSelectChange: PRESELECT_CHANGE_VIA_INPUT,
     });
     let date = parseDate(
-      event.target.value,
+      onChangeRawRet ?? event.target.value,
       this.props.dateFormat,
       this.props.locale,
       this.props.strictParsing,
