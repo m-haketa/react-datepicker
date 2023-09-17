@@ -522,9 +522,6 @@ export default class DatePicker extends React.Component {
       this.props.strictParsing,
       this.props.minDate,
     );
-    //debug用
-    console.log(onChangeRawRet);
-    console.log(date);
     // Use date from `selected` prop when manipulating only time for input value
     if (
       this.props.showTimeSelectOnly &&
