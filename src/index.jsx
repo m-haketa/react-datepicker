@@ -509,9 +509,12 @@ export default class DatePicker extends React.Component {
       }
     }
     this.setState({
-      inputValue: onChangeRawRet ?? event.target.value,
+      //入力内容を保持するstateには入力内容をそのまま
+      inputValue: event.target.value,
       lastPreSelectChange: PRESELECT_CHANGE_VIA_INPUT,
     });
+    //入力内容に基づきDatePickerの画面を表示するロジック向けには、
+    //置換後の日付を使う
     let date = parseDate(
       onChangeRawRet ?? event.target.value,
       this.props.dateFormat,
@@ -519,6 +522,9 @@ export default class DatePicker extends React.Component {
       this.props.strictParsing,
       this.props.minDate,
     );
+    //debug用
+    console.log(onChangeRawRet);
+    console.log(date);
     // Use date from `selected` prop when manipulating only time for input value
     if (
       this.props.showTimeSelectOnly &&
